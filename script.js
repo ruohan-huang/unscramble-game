@@ -4,8 +4,12 @@ let searchedWordJSON;
 let wordBank;
 let currentWord;
 let wordDefinition;
+let moreWordDefinitions;
 let definition = document.getElementById("word-definition");
-
+let moreDefs = document.getElementById("more-definitions");
+let popup = document.getElementById("popup");
+let closePopupButton = document.getElementById("close-popup");
+let bgBlur = document.getElementById("bg-blur");
 
 let slider = document.getElementById("slider");
 let output = document.getElementById("slider-value");
@@ -61,12 +65,37 @@ async function getNewWord() {
 definition.onclick = () => {
     if (definition.innerHTML == wordDefinition) {
         definition.innerHTML = "Show definition";
+        moreDefs.hidden = true;
         definition.style.color = rgb(97, 97, 97);
     } else {
         definition.innerHTML = wordDefinition;
+        moreDefs.hidden = false;
+        moreDefs.innerHTML = "(...)";
         definition.style.color = "black";
     }
 }
+
+moreDefs.onclick = () => {
+    bgBlur.style = "display: block";
+    popup.style = "display: block";
+}
+
+bgBlur.onclick = () => {
+    bgBlur.style = "display: none";
+    popup.style = "display: none";
+}
+
+closePopupButton.onclick = () => {
+    bgBlur.style = "display: none";
+    popup.style = "display: none";
+}
+
+// document.addEventListener("keydown", function (event) {
+//     if (event.key === "Escape" && bgBlur.style === "display: block") {
+//         bgBlur.style = "display: none";
+//         popup.style = "display: none";
+//     }
+// });
 
 
 submitButton.onclick = () => {

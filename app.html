@@ -22,12 +22,26 @@
     <div class="container" id="game-container" style="display:none">
         <h2 id="scrambled-word"></h2>
         <p id="word-definition"></p>
+        <p id="more-definitions" hidden="true">(...)</p>
         <input type="text" id="submitted-word"> <br>
         <button id="submit-button">SUBMIT</button>
         <button id="skip-button">SKIP</button>
         <p id="incorrect-msg"></p> <br>
         <p id="score"></p>
     </div>
+
+    <div class="container" id="popup" style="display: none">
+        <div id="popup-header">
+            <h3>Other Definitions</h3>
+            <button id="close-popup">&times;</button>
+        </div>
+
+        <div id="popup-body">
+            <p id="popup-defs"></p>
+        </div>
+    </div>
+
+    <div id="bg-blur" style="display: none"></div>
 
     <script src="script.js"></script>
     
