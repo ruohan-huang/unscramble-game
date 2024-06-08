@@ -12,22 +12,17 @@
 <body>
     <h1>WORD UNSCRAMBLE GAME</h1>
 
-    <div id="start-container" style="display:block">
+    <div class="container" id="start-container" style="display:block">
         <p>Word Length:</p>
         <p id="slider-value"></p>
-
-        <div class="slider-container">
-            <input type="range" min="3" max="12" value="5" id="slider">
-        </div>
-
+        <input type="range" min="3" max="12" value="5" id="slider">
         <button id="play-button">PLAY</button>
-
     </div>
 
-    <div id="game-container" style="display:none">
+    <div class="container" id="game-container" style="display:none">
         <h2 id="scrambled-word"></h2>
         <p id="word-definition"></p>
-        <input type="text" id="submitted-word">
+        <input type="text" id="submitted-word"> <br>
         <button id="submit-button">SUBMIT</button>
         <button id="skip-button">SKIP</button>
         <p id="incorrect-msg"></p> <br>

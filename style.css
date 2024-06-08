@@ -1,29 +1,23 @@
 body {
     background-color:rgb(150, 223, 241);
-    justify-content: center;
     color: black;
+    margin: 0 auto;
+    display: block;
 }
 
-h1 {
+h1, h2 {
     text-align: center;
 }
 
-#play-container,
-#start-container {
+.container {
     color: black;
     width: 400px;
     height: 400px;
     background-color: aliceblue;
     border-radius: 30px;
     padding: 20px;
-    /* display: flex; */
-    justify-content: center;
-}
-
-#slider-container {
-    width: 100%;
-    display: flex;
-    justify-content: center;
+    margin: auto;
+    text-align: center;
 }
 
 #slider {
@@ -38,6 +32,12 @@ h1 {
 #slider:hover {
     opacity: 1;
     cursor: pointer;
+}
+
+#submitted-word {
+    height: 30px;
+    width: 50%;
+    border-radius: 20px;
 }
 
 p {
@@ -55,4 +55,15 @@ button {
 button:hover {
     cursor: pointer;
     border-color: black;
+}
+
+#word-definition {
+    color: black;
+    font-style: italic;
+}
+
+#word-definition:hover {
+    cursor: pointer;
+    /* color: rgb(97, 97, 97); */
+    /* text-decoration: underline; */
 }

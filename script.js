@@ -3,6 +3,8 @@ let searchedWordJSON;
 
 let wordBank;
 let currentWord;
+let wordDefinition;
+let definition = document.getElementById("word-definition");
 
 
 let slider = document.getElementById("slider");
@@ -43,21 +45,29 @@ async function getNewWord() {
     let index = Math.floor(Math.random() * filteredWordList.length);
     currentWord = filteredWordList[index];
     scrambledWord.innerHTML = shuffle(currentWord);
+    definition.innerHTML = "Show definition";
 
     try {
         console.log("tried");
         const response = await fetch(searchWordApiUrl + currentWord);
         const json = await response.json();
         console.log(json);
-        let wordDefinition = json[0].meanings[0].definitions[0].definition;
-        console.log(wordDefinition);
-        let definition = document.getElementById("word-definition");
-        definition.innerHTML = wordDefinition;
+        wordDefinition = json[0].meanings[0].definitions[0].definition;
     } catch {
-        let definition = document.getElementById("word-definition");
-        definition.innerHTML = "No definition found";
+        wordDefinition = "No definition found";
     }
 }
+
+definition.onclick = () => {
+    if (definition.innerHTML == wordDefinition) {
+        definition.innerHTML = "Show definition";
+        definition.style.color = rgb(97, 97, 97);
+    } else {
+        definition.innerHTML = wordDefinition;
+        definition.style.color = "black";
+    }
+}
+
 
 submitButton.onclick = () => {
     let submittedInput = document.getElementById("submitted-word");
