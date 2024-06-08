@@ -1,0 +1,58 @@
+body {
+    background-color:rgb(150, 223, 241);
+    justify-content: center;
+    color: black;
+}
+
+h1 {
+    text-align: center;
+}
+
+#play-container,
+#start-container {
+    color: black;
+    width: 400px;
+    height: 400px;
+    background-color: aliceblue;
+    border-radius: 30px;
+    padding: 20px;
+    /* display: flex; */
+    justify-content: center;
+}
+
+#slider-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+#slider {
+    width: 75%;
+    height: 10px;
+    background: #d3d3d3;
+    outline: none;
+    opacity: 0.7;
+    margin: auto;
+}
+
+#slider:hover {
+    opacity: 1;
+    cursor: pointer;
+}
+
+p {
+    text-align: center;
+}
+
+button {
+    margin: 20px;
+    padding: 10px 15px;
+    border-radius: 15px;
+    border-width: 2px;
+    border-color: gray;
+}
+
+button:hover {
+    cursor: pointer;
+    border-color: black;
+}
