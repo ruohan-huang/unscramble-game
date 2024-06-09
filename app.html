@@ -7,33 +7,44 @@
           content="width=device-width, initial-scale=1.0">
     <title>UNSCRAMBLE</title>
     <link rel="stylesheet" href="style.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+
 </head>
 
 <body>
     <h1>WORD UNSCRAMBLE GAME</h1>
 
     <div class="container" id="start-container" style="display:block">
-        <p>Word Length:</p>
-        <p id="slider-value"></p>
-        <input type="range" min="3" max="12" value="5" id="slider">
-        <button id="play-button">PLAY</button>
+        <br/>
+        <p style="font-style: italic;">Directions: Rearrange the provided letters to form the correct word. Set the word length below and click PLAY to begin!</p><br/>
+        <p style="font-size: large">Word Length:</p>
+        <p style="font-size: large" id="slider-value"></p>
+        <input type="range" min="3" max="12" value="5" id="slider"><br/><br/>
+        <button style="font-size: 20px" id="play-button">PLAY</button>
     </div>
 
     <div class="container" id="game-container" style="display:none">
-        <h2 id="scrambled-word"></h2>
+        <div id="wood-block-container">
+            <!-- <div style="margin-top: 10px" id="scrambled-word"></div> -->
+        </div>
         <p id="word-definition"></p>
         <p id="more-definitions" hidden="true">(...)</p>
-        <input type="text" id="submitted-word"> <br>
+        <input type="text" id="submitted-word"> <br/>
         <button id="submit-button">SUBMIT</button>
         <button id="skip-button">SKIP</button>
-        <p id="incorrect-msg"></p> <br>
+        <p id="incorrect-msg"></p> <br/>
         <p id="score"></p>
     </div>
 
-    <div class="container" id="popup" style="display: none">
+    <div id="popup" style="display: none">
         <div id="popup-header">
             <h3>Other Definitions</h3>
-            <button id="close-popup">&times;</button>
+            <button style="font-family: Arial, Helvetica, sans-serif;" id="close-popup">&times;</button>
         </div>
 
         <div id="popup-body">

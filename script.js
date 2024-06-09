@@ -5,9 +5,11 @@ let wordBank;
 let currentWord;
 let wordDefinition;
 let moreWordDefinitions;
+let scrambledWord = document.getElementById("wood-block-container");
 let definition = document.getElementById("word-definition");
 let moreDefs = document.getElementById("more-definitions");
 let popup = document.getElementById("popup");
+let popupDefs = document.getElementById("popup-defs");
 let closePopupButton = document.getElementById("close-popup");
 let bgBlur = document.getElementById("bg-blur");
 
@@ -15,7 +17,6 @@ let slider = document.getElementById("slider");
 let output = document.getElementById("slider-value");
 output.innerHTML = slider.value;
 let playButton = document.getElementById("play-button");
-let scrambledWord = document.getElementById("scrambled-word");
 
 let submitButton = document.getElementById("submit-button");
 let skipButton = document.getElementById("skip-button");
@@ -47,18 +48,33 @@ async function getNewWord() {
     let wordLength = parseInt(slider.value);
     let filteredWordList = wordBank.filter(word => word.length === wordLength);
     let index = Math.floor(Math.random() * filteredWordList.length);
-    currentWord = filteredWordList[index];
+    currentWord = filteredWordList[index].toUpperCase();
     scrambledWord.innerHTML = shuffle(currentWord);
     definition.innerHTML = "Show definition";
+    submitButton.style = "visibility: visible";
+    moreDefs.hidden = "true";
+    document.getElementById("incorrect-msg").style = "display:none";
 
     try {
-        console.log("tried");
-        const response = await fetch(searchWordApiUrl + currentWord);
+        const response = await fetch(searchWordApiUrl + currentWord.toLowerCase());
         const json = await response.json();
-        console.log(json);
-        wordDefinition = json[0].meanings[0].definitions[0].definition;
+        const meanings = json[0].meanings[0];
+        // console.log(json);
+        wordDefinition = meanings.definitions[0].definition;
+        let allDefs = "";
+        if (meanings.definitions.length === 1) {
+            allDefs = "No other definitions found";
+        } else {
+            allDefs = "<ul>";
+            for (let i = 1; i < meanings.definitions.length; i++) {
+                allDefs += "<li>" + meanings.definitions[i].definition + "</li>";
+            }
+            allDefs += "</ul>";
+        }
+        popupDefs.innerHTML = allDefs;
     } catch {
         wordDefinition = "No definition found";
+        popupDefs.innerHTML = "No other definitions found";
     }
 }
 
@@ -66,56 +82,71 @@ definition.onclick = () => {
     if (definition.innerHTML == wordDefinition) {
         definition.innerHTML = "Show definition";
         moreDefs.hidden = true;
-        definition.style.color = rgb(97, 97, 97);
     } else {
         definition.innerHTML = wordDefinition;
         moreDefs.hidden = false;
         moreDefs.innerHTML = "(...)";
-        definition.style.color = "black";
     }
 }
 
 moreDefs.onclick = () => {
-    bgBlur.style = "display: block";
-    popup.style = "display: block";
+    bgBlur.style = "display:block";
+    popup.style = "display:block";
 }
 
 bgBlur.onclick = () => {
-    bgBlur.style = "display: none";
-    popup.style = "display: none";
+    bgBlur.style = "display:none";
+    popup.style = "display:none";
 }
 
 closePopupButton.onclick = () => {
-    bgBlur.style = "display: none";
-    popup.style = "display: none";
+    bgBlur.style = "display:none";
+    popup.style = "display:none";
 }
 
-// document.addEventListener("keydown", function (event) {
+// popup.addEventListener("keydown", function(event) {
 //     if (event.key === "Escape" && bgBlur.style === "display: block") {
-//         bgBlur.style = "display: none";
-//         popup.style = "display: none";
+//         bgBlur.style = "display:none";
+//         popup.style = "display:none";
 //     }
 // });
 
+let submittedInput = document.getElementById("submitted-word");
+submittedInput.addEventListener("keydown", function(event) {
+    if (event.key === "Enter") {
+        submitWord();
+    }
+});
 
-submitButton.onclick = () => {
-    let submittedInput = document.getElementById("submitted-word");
-    if (submittedInput.value == currentWord) {
+
+submitButton.onclick = submitWord;
+
+function submitWord() {
+    if (submittedInput.value.toUpperCase() == currentWord) {
         score++;
         updateScore();
+        confetti();
         let definition = document.getElementById("word-definition");
         definition.innerHTML = "Correct!";
-        scrambledWord.innerHTML = currentWord;
-        document.getElementById("incorrect-msg").innerHTML = "";
+        scrambledWord.innerHTML = currentWord.split("").map( word => `<div class="wood-block">${word}</div>`).join("");
+        document.getElementById("incorrect-msg").style = "display:none";
+        submitButton.style = "visibility: hidden";
         skipButton.innerHTML = "NEXT";
+        moreDefs.hidden = "true";
     } else {
         updateScore();
-        document.getElementById("incorrect-msg").innerHTML = "Incorrect";
+        let incorrect = document.getElementById("incorrect-msg");
+        incorrect.style = "display: block"
+        incorrect.innerHTML = "Incorrect";
         skipButton.innerHTML = "SKIP";
     }
 }
 
-skipButton.onclick = getNewWord;
+skipButton.onclick = skip;
+
+function skip() {
+    
+}
 
 function updateScore() {
     displayedScore.innerHTML = "Score: " + score;
@@ -132,5 +163,6 @@ function shuffle(word) {
         list[j] = temp;
     }
 
-    return list.join("");
+    const blocks = list.map( word => `<div class="wood-block">${word}</div>`);
+    return blocks.join("");
 }
