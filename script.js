@@ -132,6 +132,7 @@ function submitWord() {
         document.getElementById("incorrect-msg").style = "display:none";
         submitButton.style = "visibility: hidden";
         skipButton.innerHTML = "NEXT";
+        skipButton.setAttribute("skip-active", "false");
         moreDefs.hidden = "true";
     } else {
         updateScore();
@@ -145,7 +146,12 @@ function submitWord() {
 skipButton.onclick = skip;
 
 function skip() {
-    
+    if (skipButton.getAttribute("skip-active") == "true") {
+        scrambledWord.innerHTML = currentWord.split("").map( word => `<div class="skip-wood-block">${word}</div>`).join("");
+        setTimeout(getNewWord, 2000);
+    } else {
+        getNewWord();
+    }
 }
 
 function updateScore() {
