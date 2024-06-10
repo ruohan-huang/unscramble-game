@@ -140,6 +140,7 @@ function submitWord() {
         incorrect.style = "display: block"
         incorrect.innerHTML = "Incorrect";
         skipButton.innerHTML = "SKIP";
+        skipButton.setAttribute("skip-active", "true");
     }
 }
 
@@ -150,6 +151,7 @@ function skip() {
         scrambledWord.innerHTML = currentWord.split("").map( word => `<div class="skip-wood-block">${word}</div>`).join("");
         setTimeout(getNewWord, 2000);
     } else {
+        skipButton.setAttribute("skip-active", "true");
         getNewWord();
     }
 }
